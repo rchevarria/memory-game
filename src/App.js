@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react'
 import Card from './Card'
 
 const cardImages = [
-    {"src": "img/tnt.png"},         //path to images
-    {"src": "img/furnace.png"},
-    {"src": "img/creeper.png"},
-    {"src": "img/sword.png"},
-    {"src": "img/craft.png"},
-    {"src": "img/steve.png"}
+    {"src": "img/tnt.png", matched: false},         //path to images
+    {"src": "img/furnace.png", matched: false},
+    {"src": "img/creeper.png", matched: false},
+    {"src": "img/sword.png", matched: false},
+    {"src": "img/craft.png", matched: false},
+    {"src": "img/steve.png", matched: false}
 ]
 
 function App() {
@@ -40,7 +40,15 @@ function App() {
         if(firstChoice && secondChoice){
             
             if(firstChoice.src === secondChoice.src){
-                console.log("those cards match")
+                setCards(prevCards => {
+                    return prevCards.map(card => {
+                        if(card.src == firstChoice.src){
+                            return {...card, matched: true}
+                        }else{
+                            return card
+                        }
+                    })
+                })
                 reset()
             }
             else{
@@ -49,6 +57,8 @@ function App() {
             }
         }
     }, [firstChoice, secondChoice])
+    
+    console.log(cards)
     
     //reset choices and increases turns
     const reset = () => {
