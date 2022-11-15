@@ -25,6 +25,8 @@ function App() {
         .sort(() => Math.random() - 0.5)
         .map((card) => ({...card, id: Math.random() })) //shuffling cards and giving them an ID
         
+        setChoiceOne(null)
+        setChoiceTwo(null)
         setCards(shuffledCards)
         setTurns(0)
     }
@@ -65,13 +67,18 @@ function App() {
         setChoiceOne(null)
         setChoiceTwo(null)
         setDisabled(false)
+        setTurns(prevTurns => prevTurns + 1)
     }
   
+    useEffect(() => {
+        shuffleCards()
+    }, [])
     
     return(
         <div className="App">
              <h1> Minecraft Memory Game </h1>
              <start-button onClick={shuffleCards}> New Game </start-button>
+              <h5> Turns: {turns} </h5>
            
            <div className="card-grid">
                 {cards.map(card => (
@@ -84,7 +91,6 @@ function App() {
                     />
             ))}
            </div>
-           
         </div>
     );
 }
