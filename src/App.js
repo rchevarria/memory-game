@@ -18,12 +18,15 @@ function App() {
     
     const [firstChoice, setChoiceOne] = useState(null)
     const [secondChoice, setChoiceTwo] = useState(null)
+    const [disabled, setDisabled] = useState(false)
     
     const shuffleCards = () => {
         const shuffledCards = [...cardImages, ...cardImages]
         .sort(() => Math.random() - 0.5)
         .map((card) => ({...card, id: Math.random() })) //shuffling cards and giving them an ID
         
+        setChoiceOne(null)
+        setChoiceTwo(null)
         setCards(shuffledCards)
         setTurns(0)
     }
@@ -38,7 +41,7 @@ function App() {
     
     useEffect(() => {
         if(firstChoice && secondChoice){
-            
+            setDisabled(true)
             if(firstChoice.src === secondChoice.src){
                 setCards(prevCards => {
                     return prevCards.map(card => {
@@ -63,13 +66,19 @@ function App() {
     const reset = () => {
         setChoiceOne(null)
         setChoiceTwo(null)
+        setDisabled(false)
+        setTurns(prevTurns => prevTurns + 1)
     }
   
+    useEffect(() => {
+        shuffleCards()
+    }, [])
     
     return(
         <div className="App">
              <h1> Minecraft Memory Game </h1>
              <start-button onClick={shuffleCards}> New Game </start-button>
+              <h5> Turns: {turns} </h5>
            
            <div className="card-grid">
                 {cards.map(card => (
@@ -78,10 +87,10 @@ function App() {
                         card={card}
                         handleChoice = {handleChoice}
                         flipped={card === firstChoice || card === secondChoice ||card.matched}
+                        disabled = {disabled}
                     />
             ))}
            </div>
-           
         </div>
     );
 }
