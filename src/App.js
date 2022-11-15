@@ -52,8 +52,7 @@ function App() {
                 reset()
             }
             else{
-                console.log("NO MATCH")
-                reset()
+                setTimeout(() => reset(), 1000)
             }
         }
     }, [firstChoice, secondChoice])
