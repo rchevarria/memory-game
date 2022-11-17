@@ -15,7 +15,6 @@ start-button{
 
 start-button:hover{
     background-image: url('hoverbutton.jpeg');
-    color: #fff;
 }
 
 .grid{
