@@ -8,7 +8,9 @@ const cardImages = [
     {"src": "img/creeper.png", matched: false},
     {"src": "img/sword.png", matched: false},
     {"src": "img/craft.png", matched: false},
-    {"src": "img/steve.png", matched: false}
+    {"src": "img/steve.png", matched: false},
+    {"src": "img/pig.png", matched: false},
+    {"src": "img/zombie.png", matched: false}
 ]
 
 function App() {
@@ -78,7 +80,7 @@ function App() {
         <div className="App">
              <h1> Minecraft Memory Game </h1>
              <start-button onClick={shuffleCards}> New Game </start-button>
-              <h5> Turns: {turns} </h5>
+              <h5> Moves: {turns} </h5>
            
            <div className="card-grid">
                 {cards.map(card => (
